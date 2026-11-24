@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "functions": {
+    "/api/auth/callback": {},
+    "/api/auth/session": {},
+    "/api/health": {},
+    "/api/listings": {},
+    "/api/listings/[id]": {},
+    "/api/payments": {},
+    "/api/payments/checkout": {},
+    "/api/payments/webhook": {},
+    "/api/upload/complete": {},
+    "/api/upload/token": {}
+  }
+}

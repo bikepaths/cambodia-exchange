@@ -1,0 +1,24 @@
+2:"$Sreact.fragment"
+3:"/_next/static/chunks/3qfy96eoyh-ek.js"
+4:"/_next/static/chunks/3omw667vm2xq9.js"
+5:"/_next/static/chunks/439pglh-hez95.js"
+6:"/_next/static/chunks/1v3c56c9kuu97.js"
+7:"/_next/static/chunks/03-sc2ncg0-2k.js"
+8:I[10313,["$3","$4","$5","$6","$7"],"Marketplace"]
+9:I[97367,["$3","$4","$5"],"OutletBoundary"]
+a:"$Sreact.suspense"
+e:"ViewportBoundary"
+f:I[97367,["$3","$4","$5"],"$e"]
+10:"MetadataBoundary"
+11:I[97367,["$3","$4","$5"],"$10"]
+12:I[27201,["$3","$4","$5"],"IconMark"]
+d:X
+1:[["children",{"s":"__PAGE__","h":128,"d":{"r":["$","$2","c",{"children":[["$","$L8",null,{}],[["$","script","script-0",{"src":"/_next/static/chunks/1v3c56c9kuu97.js","async":true}],["$","script","script-1",{"src":"/_next/static/chunks/03-sc2ncg0-2k.js","async":true}]],["$","$L9",null,{"children":["$","$a",null,{"name":"Next.MetadataOutlet","children":"$@b"}]}]]}],"p":"$@c","v":null,"s":"$d"}}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$Lf",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}]]}],["$","$L11",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Cambodia Exchange — Buy, sell and trade across Cambodia"}],["$","meta","1",{"name":"description","content":"A bilingual marketplace for people across Cambodia to buy, sell and trade directly in USD or KHR."}],["$","link","2",{"rel":"manifest","href":"/manifest.webmanifest"}],["$","meta","3",{"property":"og:title","content":"Cambodia Exchange"}],["$","meta","4",{"property":"og:description","content":"Buy, sell and trade across Cambodia."}],["$","meta","5",{"name":"twitter:card","content":"summary"}],["$","meta","6",{"name":"twitter:title","content":"Cambodia Exchange"}],["$","meta","7",{"name":"twitter:description","content":"Buy, sell and trade across Cambodia."}],["$","link","8",{"rel":"icon","href":"/icon.svg?icon.27m1bav7mshr4.svg","sizes":"any","type":"image/svg+xml"}],["$","$L12","9",{}]]}]}],null]}],null]}],"p":"$@13","v":null,"s":"$d"}},"a":"$@14","u":"$@15","b":"rPmAnX1ZrVA7BdABj5eBD"}
+b:null
+15:true
+d:300
+d:C
+14:0
+13:"$undefined"
+c:"$undefined"

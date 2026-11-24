@@ -1,0 +1,19 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/account/page": "/account",
+  "/api/auth/callback/route": "/api/auth/callback",
+  "/api/auth/session/route": "/api/auth/session",
+  "/api/health/route": "/api/health",
+  "/api/listings/[id]/route": "/api/listings/[id]",
+  "/api/listings/route": "/api/listings",
+  "/api/payments/checkout/route": "/api/payments/checkout",
+  "/api/payments/route": "/api/payments",
+  "/api/payments/webhook/route": "/api/payments/webhook",
+  "/api/upload/complete/route": "/api/upload/complete",
+  "/api/upload/token/route": "/api/upload/token",
+  "/icon.svg/route": "/icon.svg",
+  "/manifest.webmanifest/route": "/manifest.webmanifest",
+  "/my-listings/page": "/my-listings",
+  "/page": "/"
+}

@@ -1,0 +1,19 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/account/page": "app/account/page.js",
+  "/api/auth/callback/route": "app/api/auth/callback/route.js",
+  "/api/auth/session/route": "app/api/auth/session/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/api/listings/[id]/route": "app/api/listings/[id]/route.js",
+  "/api/listings/route": "app/api/listings/route.js",
+  "/api/payments/checkout/route": "app/api/payments/checkout/route.js",
+  "/api/payments/route": "app/api/payments/route.js",
+  "/api/payments/webhook/route": "app/api/payments/webhook/route.js",
+  "/api/upload/complete/route": "app/api/upload/complete/route.js",
+  "/api/upload/token/route": "app/api/upload/token/route.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
+  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
+  "/my-listings/page": "app/my-listings/page.js",
+  "/page": "app/page.js"
+}

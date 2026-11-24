@@ -1,0 +1,57 @@
+module.exports=[7529,e=>e.a(async(t,a)=>{try{var r=e.i(89171),n=e.i(62294),i=e.i(9843),o=e.i(93759),s=t([n]);[n]=s.then?(await s)():s;let c=e=>new r.NextResponse(null,{status:307,headers:{Location:`/?error=${e}`}});async function l(e){let t=e.nextUrl.searchParams,a=t.get("code"),s=t.get("access_token"),l=t.get("refresh_token")??"",u=t.get("state")??"";try{if(a){let e=await (0,i.C)(a);if(!e)return c("auth_failed");({accessToken:s,refreshToken:l}=e)}if(!s)return c("no_token");let e=await fetch(i.x,{headers:{Authorization:`Bearer ${s}`}});if(!e.ok)throw Error(`KOOMPI ID did not accept the token (HTTP ${e.status})`);let t=await e.json(),d=t.user??t,p=await (0,n.f)();if(!p)return console.error("Database not initialized"),c("database_error");await p.execute({sql:`
+        INSERT INTO users (koompi_id, email, fullname, avatar, wallet_address)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(koompi_id) DO UPDATE SET
+          email = excluded.email,
+          fullname = excluded.fullname,
+          avatar = excluded.avatar,
+          wallet_address = excluded.wallet_address,
+          updated_at = CURRENT_TIMESTAMP
+      `,args:[d._id||d.sub||d.id,d.email,d.fullname||d.name||null,d.profile||d.avatar||d.picture||null,d.wallet_address||""]});let h=(0,o.R)(d),g=h?{type:"koompi-sign-in",accessToken:h,refreshToken:"",user:JSON.stringify(d),state:u}:{type:"koompi-sign-in",accessToken:s,refreshToken:l,user:JSON.stringify(d),state:u},f=`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>Signing in…</title>
+  </head>
+  <body style="margin:0;min-height:100vh;display:grid;place-items:center;font-family:system-ui,-apple-system,'Segoe UI',sans-serif">
+    <p id="note">Signing in…</p>
+    <script>
+      (function () {
+        var data = ${JSON.stringify(g).replace(/</g,"\\u003c").replace(/>/g,"\\u003e").replace(/&/g,"\\u0026").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029")};
+        var KEY = 'koompi_sign_in';
+        var pending = null;
+        try { pending = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+        // Only a sign-in this browser started, in the last 10 minutes; its state, once KOOMPI Cloud hands it back.
+        var ours = !!(pending && pending.state && pending.at && Date.now() - pending.at < 600000 && (!data.state || data.state === pending.state));
+        if (ours) {
+          localStorage.setItem('access_token', data.accessToken);
+          localStorage.setItem('refresh_token', data.refreshToken || '');
+          localStorage.setItem('user', data.user || 'null');
+          // Which sign-in finished: an action waiting on it goes on (lib/require-sign-in.ts).
+          localStorage.setItem('koompi_signed_in', JSON.stringify({ state: pending.state, at: Date.now() }));
+          localStorage.removeItem(KEY);
+        }
+        // Back to the page the sign-in started from, when it is one of this app's own.
+        var back = '/';
+        try {
+          var to = new URL(pending.back, location.origin);
+          if (typeof pending.back === 'string' && to.origin === location.origin) back = to.pathname + to.search;
+        } catch (e) {}
+        // The window that asked: it keeps the sign-in if it started it (lib/auth.ts acceptSignIn).
+        try { if (window.opener) window.opener.postMessage(data, location.origin); } catch (e) {}
+        try { var channel = new BroadcastChannel('koompi-sign-in'); channel.postMessage(data); channel.close(); } catch (e) {}
+        var popup = !!window.opener || !!(pending && pending.popup);
+        try { history.replaceState(null, '', '/api/auth/callback'); } catch (e) {}
+        if (popup) window.close();
+        else if (ours) { location.replace(back); return; }
+        document.getElementById('note').textContent = popup
+          ? 'Signed in. You can close this window.'
+          : 'This sign-in was not started here. Go back to the app and sign in again.';
+      })();
+    </script>
+  </body>
+</html>`;return new r.NextResponse(f,{headers:{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","Referrer-Policy":"no-referrer"}})}catch(e){return console.error("Auth callback error:",e),c("auth_failed")}}e.s(["GET",0,l,"runtime",0,"nodejs"]),a()}catch(e){a(e)}},!1),65771,e=>{"use strict";var t=e.i(47909),a=e.i(74017),r=e.i(96250),n=e.i(59756),i=e.i(61916),o=e.i(74677),s=e.i(69741),l=e.i(16795),c=e.i(87718),u=e.i(95169),d=e.i(47587),p=e.i(66012),h=e.i(70101),g=e.i(26937),f=e.i(10372),m=e.i(93695),w=e.i(9580);e.i(52474);var v=e.i(220);let y=new t.AppRouteRouteModule({definition:{kind:a.f.APP_ROUTE,page:"/api/auth/callback/route",pathname:"/api/auth/callback",filename:"route",bundlePath:""},distDir:".next",relativeProjectDir:"",resolvedPagePath:"[project]/app/api/auth/callback/route.ts",nextConfigOutput:"standalone",userland:()=>e.r(7529),...{}}),{workAsyncStorage:k,workUnitAsyncStorage:R,serverHooks:b}=y;async function x(e,t,a){a.requestMeta&&(0,n.R)(e,a.requestMeta),y.isDev&&(0,n.i)(e,"devRequestTimingInternalsEnd",process.hrtime.bigint());let r="/api/auth/callback/route";r=r.replace(/\/index$/,"")||"/";let{instrumentation:o}=await y.ensureInstrumentation(e,{deferSpans:!0});return y.traceRequest(e,{tracer:(0,i.v)(),spanName:`${e.method||"GET"} ${r}`,httpTarget:e.url,instrumentation:o},(n,i)=>E(e,t,a,r,!1,n,i))}async function E(e,t,r,k,R,b,x){let E=await y.prepare(e,t,{srcPage:k,multiZoneDraftMode:R});if(!E)return t.statusCode=400,t.end("Bad Request"),null==r.waitUntil||r.waitUntil.call(r,Promise.resolve()),null;let{buildId:T,deploymentId:C,params:S,nextConfig:O,parsedUrl:_,isDraftMode:P,prerenderManifest:A,routerServerContext:I,isOnDemandRevalidate:U,revalidateOnlyGenerated:N,resolvedPathname:M,clientReferenceManifest:D,serverActionsManifest:q,previewProps:L}=E,$=(0,s.f)(k),G=!!A.routes[M]&&(y.isDev||(0,w.f)(M,y.cacheOwner,A.routes[M])),H=!!(A.dynamicRoutes[$]||G),j=async()=>((null==I?void 0:I.render404)?await I.render404(e,t,_,!1):t.end("This page could not be found"),null);if(H&&!P){let e=A.dynamicRoutes[$];if(e&&!1===e.fallback&&!G){if(O.adapterPath)return await j();throw new m.NoFallbackError}}let B=null;!H||y.isDev||P||(B="/index"===(B=M)?"/":B),q&&D&&(0,o.f)({page:k,clientReferenceManifest:D,serverActionsManifest:q});let K=e.method||"GET",J=(0,i.v)(),F=!!(null==I?void 0:I.isWrappedByNextServer),Y=!!(0,n.w)(e,"minimalMode"),V=(0,n.w)(e,"incrementalCache")||await y.getIncrementalCache(e,O,L,A,Y);null==V||V.resetRequestCache(),globalThis.__incrementalCache=V;let W={params:S,previewProps:L,renderOpts:{experimental:{authInterrupts:!!O.experimental.authInterrupts,useCacheTimeout:O.experimental.useCacheTimeout,durableUseCacheEntries:!!O.experimental.durableUseCacheEntries},cacheComponents:!!O.cacheComponents,validationLevel:O.experimental.instantInsights.validationLevel,isDraftMode:P,incrementalCache:V,hmrRefreshHash:(0,n.w)(e,"hmrRefreshHash"),cacheLifeProfiles:O.cacheLife,staticPageGenerationTimeout:O.staticPageGenerationTimeout,waitUntil:r.waitUntil,onClose:e=>{t.on("close",e)},onAfterTaskError:void 0},sharedContext:{buildId:T,deploymentId:C}},z=new l.x(e),Q=new l.e(t),X=c.k.fromNodeNextRequest(z,(0,c.t)(t)),Z=async({previousCacheEntry:a})=>{try{if(!Y&&U&&N&&!a)return t.statusCode=404,t.setHeader("x-nextjs-cache","REVALIDATED"),t.end("This page could not be found"),null;let n=null===B?await y.handle(X,W):await y.prerender(X,W);e.fetchMetrics=W.renderOpts.fetchMetrics;let i=W.renderOpts.pendingWaitUntil;i&&r.waitUntil&&(r.waitUntil(i),i=void 0);let o=W.renderOpts.collectedTags;if(!H)return await (0,p.f)(z,Q,n,i),null;{let e=await n.blob(),t=(0,h.S)(n.headers);o&&(t[f.M]=o),!t["content-type"]&&e.type&&(t["content-type"]=e.type);let a=void 0!==W.renderOpts.collectedRevalidate&&!(W.renderOpts.collectedRevalidate>=f.Q)&&W.renderOpts.collectedRevalidate,r=void 0===W.renderOpts.collectedExpire||W.renderOpts.collectedExpire>=f.Q?!1!==a&&a>0?O.expireTime:void 0:W.renderOpts.collectedExpire;return{value:{kind:v.x.APP_ROUTE,status:n.status,body:Buffer.from(await e.arrayBuffer()),headers:t},cacheControl:{revalidate:a,expire:r}}}}catch(t){throw(null==a?void 0:a.isStale)&&await y.onRequestError(e,t,{routerKind:"App Router",routePath:k,routeType:"route",revalidateReason:(0,d.f)({isStaticGeneration:null!==B,isOnDemandRevalidate:U})},!1,I),t}},ee=async n=>{try{var o,s;let n=await y.handleResponse({req:e,nextConfig:O,cacheKey:B,routeKind:a.f.APP_ROUTE,isFallback:!1,previewProps:L,prerenderManifest:A,isRoutePPREnabled:!1,isOnDemandRevalidate:U,revalidateOnlyGenerated:N,responseGenerator:Z,waitUntil:r.waitUntil,isMinimalMode:Y});if(null!==n&&"error"in n)throw n.error;if(!H)return;if((null==n||null==(o=n.value)?void 0:o.kind)!==v.x.APP_ROUTE)throw Error(`Invariant: app-route received invalid cache entry ${null==n||null==(s=n.value)?void 0:s.kind}`);Y||t.setHeader("x-nextjs-cache",U?"REVALIDATED":n.isMiss?"MISS":n.isStale?"STALE":"HIT"),P&&t.setHeader("Cache-Control","private, no-cache, no-store, max-age=0, must-revalidate");let i=(0,h.G)(n.value.headers);Y&&H||i.delete(f.M),!n.cacheControl||t.getHeader("Cache-Control")||i.get("Cache-Control")||i.set("Cache-Control",(0,g.f)(n.cacheControl)),await (0,p.f)(z,Q,new Response(n.value.body,{headers:i,status:n.value.status||200}));return}catch(a){if(a instanceof m.NoFallbackError||await y.onRequestError(e,a,{routerKind:"App Router",routePath:$,routeType:"route",revalidateReason:(0,d.f)({isStaticGeneration:null!==B,isOnDemandRevalidate:U})},!1,I),H)throw a;if(t.headersSent){if(n){let e=a instanceof Error?a:Error("Unknown app route error");n.recordException(e),n.setStatus({code:i.J.ERROR,message:e.message}),n.setAttribute("error.type",e.name)}t.writableEnded||t.destroyed||t.end()}else await (0,p.f)(z,Q,new Response(null,{status:500}));return}finally{(()=>{if(!n)return;let e=t.statusCode;n.setAttributes({"http.status_code":e,"next.rsc":!1}),e&&e>=500&&(n.setStatus({code:i.J.ERROR}),n.setAttribute("error.type",e.toString()));let a=J.getRootSpanAttributes();if(!a)return;if(a.get("next.span_type")!==u.q.handleRequest)return console.warn(`Unexpected root span type '${a.get("next.span_type")}'. Please report this Next.js issue https://github.com/vercel/next.js`);let r=a.get("next.route")||$,o=`${K} ${r}`;n.setAttributes({"next.route":r,"http.route":r,"next.span_name":o}),n.updateName(o),x&&x!==n&&(x.setAttribute("http.route",r),x.updateName(o))})()}};F||void 0===e.url||null==b||b.setAttribute("http.target",e.url),await ee(b)}e.s(["handler",0,x,"patchFetch",0,function(){return(0,r.f)({workAsyncStorage:k,workUnitAsyncStorage:R})},"routeModule",0,y,"serverHooks",0,b,"workAsyncStorage",0,k,"workUnitAsyncStorage",0,R])}];
+
+//# sourceMappingURL=_1tviok26rr2xv._.js.map
