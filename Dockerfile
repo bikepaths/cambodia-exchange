@@ -17,7 +17,11 @@ COPY --chown=nextjs:nodejs public ./public
 COPY --chown=nextjs:nodejs .next ./.next
 
 # Install production dependencies needed by Next.js standalone runner
-RUN npm install --omit=dev --no-audit --no-fund next react react-dom @libsql/client undici
+RUN npm install --omit=dev --no-audit --no-fund next react react-dom @libsql/client undici && \
+    mkdir -p .next/node_modules/@libsql && \
+    ln -sf ../../../node_modules/@libsql/client .next/node_modules/@libsql/client-6da938047d5fc1cd && \
+    ln -sf ../../node_modules/undici .next/node_modules/undici-43b6dae3674542ed && \
+    chown -R nextjs:nodejs .next/node_modules
 
 USER nextjs
 
