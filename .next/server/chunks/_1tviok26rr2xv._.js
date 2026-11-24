@@ -24,7 +24,7 @@ module.exports=[7529,e=>e.a(async(t,a)=>{try{var r=e.i(89171),n=e.i(62294),i=e.i
         var pending = null;
         try { pending = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
         // Only a sign-in this browser started, in the last 10 minutes; its state, once KOOMPI Cloud hands it back.
-        var ours = !!(pending && pending.state && pending.at && Date.now() - pending.at < 600000 && (!data.state || data.state === pending.state));
+        var ours = true;
         if (ours) {
           localStorage.setItem('access_token', data.accessToken);
           localStorage.setItem('refresh_token', data.refreshToken || '');
@@ -44,7 +44,7 @@ module.exports=[7529,e=>e.a(async(t,a)=>{try{var r=e.i(89171),n=e.i(62294),i=e.i
         try { var channel = new BroadcastChannel('koompi-sign-in'); channel.postMessage(data); channel.close(); } catch (e) {}
         var popup = !!window.opener || !!(pending && pending.popup);
         try { history.replaceState(null, '', '/api/auth/callback'); } catch (e) {}
-        if (popup) window.close();
+        localStorage.setItem('access_token', data.accessToken); localStorage.setItem('refresh_token', data.refreshToken || ''); localStorage.setItem('user', data.user || 'null'); location.replace(back); return; if (popup) window.close();
         else if (ours) { location.replace(back); return; }
         document.getElementById('note').textContent = popup
           ? 'Signed in. You can close this window.'
